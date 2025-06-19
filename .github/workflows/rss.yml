@@ -1,4 +1,4 @@
-name: Generate RSS Feed (Playwright)
+name: Generate RSS Feed with Playwright
 
 on:
   schedule:
@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -20,13 +21,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install playwright
+          pip install playwright beautifulsoup4
           playwright install chromium
 
       - name: Generate RSS
-        run: python generate_rss_playwright.py
+        run: python generate_rss.py
 
-      - name: Commit and push RSS
+      - name: Commit and push updated RSS
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
