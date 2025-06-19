@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0">
-        <channel>
-            <title>J-RISE NEWS</title>
-            <link>https://pitmc.go.jp/</link>
-            <description>J-RISE Initiative公式のニュースフィード</description>
-            
-        </channel>
-    </rss>
+<rss version="2.0">
+  <channel>
+    <title>J-RISE NEWS</title>
+    <link>https://pitmc.go.jp/</link>
+    <description>J-RISE Initiative公式のニュースフィード</description>
+    <language>ja</language>
     
+  </channel>
+</rss>
