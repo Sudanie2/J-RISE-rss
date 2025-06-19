@@ -2,17 +2,15 @@
 <rss version="2.0">
   <channel>
     <title>J-RISE NEWS</title>
-    <link>https://pitmc.go.jp</link>
+    <link>https://pitmc.go.jp/</link>
     <description>J-RISE Initiative公式のニュースフィード</description>
     <language>ja</language>
-    
-        <item>
-            <title>J-RISE Initiativeの取りまとめと HPの公開について</title>
-            <link>https://pitmc.go.jp/news/website-launch</link>
-            <guid isPermaLink="false">13a62f039472b3d8fbd1b8912902cfb7</guid>
-            <pubDate>Thu, 19 Jun 2025 00:49:10 +0000</pubDate>
-            <description>2025年06月13日</description>
-        </item>
-        
+    <item>
+      <title>J-RISE Initiativeの取りまとめと HPの公開について</title>
+      <link>https://pitmc.go.jp/news/website-launch</link>
+      <guid isPermaLink="false">13a62f039472b3d8fbd1b8912902cfb7</guid>
+      <pubDate>Thu, 19 Jun 2025 00:54:33 +0000</pubDate>
+      <description>2025年06月13日</description>
+    </item>
   </channel>
 </rss>
