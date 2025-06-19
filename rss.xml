@@ -6,5 +6,45 @@
     <description>J-RISE Initiative公式のニュースフィード</description>
     <language>ja</language>
     
+        <item>
+            <title>J-RISE Initiativeの取りまとめと HPの公開について</title>
+            <link>https://pitmc.go.jp/</link>
+            <guid isPermaLink="false">c9fcb9e38105feb8da365bb3781229eb</guid>
+            <pubDate>Thu, 19 Jun 2025 00:41:23 +0000</pubDate>
+            <description>概要　“J-RISE Initiative”とは、内閣府で、令和７年６月13日付けで取りまとめられた国際頭脳循環の取組強化に向けたイニシ...</description>
+        </item>
+        
+        <item>
+            <title>日本で仕事を探す</title>
+            <link>https://pitmc.go.jp/</link>
+            <guid isPermaLink="false">fec9c8932d42f56a3b2387ba5f02d669</guid>
+            <pubDate>Thu, 19 Jun 2025 00:41:23 +0000</pubDate>
+            <description>研究人材のためのキャリア支援ポータルサイト。研究・教育に関する求人公募情報等を検索・閲覧することが可能です。</description>
+        </item>
+        
+        <item>
+            <title>研究者を積極的に受け入れている大学・研究機関</title>
+            <link>https://pitmc.go.jp/</link>
+            <guid isPermaLink="false">dc2601aa2995395dc6b1a6eb22ce8841</guid>
+            <pubDate>Thu, 19 Jun 2025 00:41:23 +0000</pubDate>
+            <description>各機関における公募情報は各機関のHP（各機関のロゴをクリック）</description>
+        </item>
+        
+        <item>
+            <title>研究費助成</title>
+            <link>https://pitmc.go.jp/</link>
+            <guid isPermaLink="false">2e7486e14af7528852330f408a640288</guid>
+            <pubDate>Thu, 19 Jun 2025 00:41:23 +0000</pubDate>
+            <description>日本最大の競争的研究費制度であり、あらゆる分野における独創的・先駆的な学術研究に対して助成を行う。日本国内の研究機関に所属する外国人も応募可能で、国際共同研究や海外派遣、帰国研究者への支援も含まれる。</description>
+        </item>
+        
+        <item>
+            <title>フェローシップ</title>
+            <link>https://pitmc.go.jp/</link>
+            <guid isPermaLink="false">2451fca13d2f9c9bc90cb4ef72bb0650</guid>
+            <pubDate>Thu, 19 Jun 2025 00:41:23 +0000</pubDate>
+            <description>海外の優秀な研究者を日本に招へいし、共同研究等を行う機会を提供。短期・長期の招へいプログラムを提供し、長年にわたり国際的な学術交流を牽引</description>
+        </item>
+        
   </channel>
 </rss>
