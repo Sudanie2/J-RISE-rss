@@ -1,0 +1,25 @@
+name: Generate RSS Feed
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 毎時実行
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: pip install beautifulsoup4 requests
+      - run: python generate_rss.py
+      - name: Commit and push RSS
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add rss.xml
+          git commit -m "Update RSS feed" || echo "No changes"
+          git push
