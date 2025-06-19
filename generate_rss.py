@@ -1,10 +1,9 @@
 import hashlib
 import datetime
-from pathlib import Path
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
-BASE_URL = "https://pitmc.go.jp/"
+BASE_URL = "https://pitmc.go.jp"
 RSS_FILE = "rss.xml"
 
 def fetch_articles():
@@ -12,8 +11,7 @@ def fetch_articles():
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto(BASE_URL, timeout=60000)
-        page.wait_for_timeout(3000)  # JS描画待ち（3秒）
-
+        page.wait_for_timeout(3000)
         html = page.content()
         browser.close()
 
@@ -21,26 +19,30 @@ def fetch_articles():
 
     articles = []
 
-    # タイトルと概要（<h3> + <p>）のセットを探す
-    h3_tags = soup.find_all("h3")
-    for h3 in h3_tags:
-        title = h3.get_text(strip=True)
-        p = h3.find_next("p")
-        description = p.get_text(strip=True) if p else ""
+    # aタグで/news/〜形式のリンクを探す
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if href.startswith("/news/"):
+            link = BASE_URL + href
+            title_tag = a.find("h3")
+            desc_tag = a.find_next("p")
 
-        if not title or len(title) < 5:
-            continue
+            if title_tag and desc_tag:
+                title = title_tag.get_text(strip=True)
+                description = desc_tag.get_text(strip=True)
+                if len(title) < 5 or len(description) < 10:
+                    continue
 
-        guid = hashlib.md5((title + description).encode()).hexdigest()
-        pub_date = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S +0000")
+                guid = hashlib.md5(link.encode()).hexdigest()
+                pub_date = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S +0000")
 
-        articles.append({
-            "title": title,
-            "description": description,
-            "guid": guid,
-            "pubDate": pub_date,
-            "link": BASE_URL
-        })
+                articles.append({
+                    "title": title,
+                    "description": description,
+                    "link": link,
+                    "guid": guid,
+                    "pubDate": pub_date,
+                })
 
     return articles
 
@@ -70,9 +72,10 @@ def generate_rss():
   </channel>
 </rss>
 """
+    with open(RSS_FILE, "w", encoding="utf-8") as f:
+        f.write(rss)
 
-    Path(RSS_FILE).write_text(rss, encoding="utf-8")
-    print(f"[OK] RSS生成完了 → {RSS_FILE}")
+    print(f"[OK] RSS書き出し完了 → {RSS_FILE}")
 
 if __name__ == "__main__":
     generate_rss()
