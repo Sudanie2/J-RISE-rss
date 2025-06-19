@@ -1,79 +1,20 @@
 import requests
 from bs4 import BeautifulSoup
-import datetime
-import hashlib
 
-BASE_URL = "https://pitmc.go.jp/"
-RSS_FILE = "rss.xml"
+url = "https://pitmc.go.jp/"
+res = requests.get(url)
+res.encoding = res.apparent_encoding
+soup = BeautifulSoup(res.text, "html.parser")
 
-def fetch_articles():
-    res = requests.get(BASE_URL)
-    res.encoding = res.apparent_encoding
-    soup = BeautifulSoup(res.text, "html.parser")
+print("=== タグとクラスの一覧 ===\n")
 
-    # ニュースブロックを特定する
-    blocks = soup.select("div.sd.appear")
+# 出現頻度が高そうなタグを対象にする
+target_tags = ["div", "section", "h1", "h2", "h3", "p", "a", "ul", "li", "span"]
 
-    articles = []
-    seen = set()
-
-    for block in blocks:
-        h3 = block.find("h3", class_="text sd appear")
-        p = block.find("p", class_="text sd appear")
-
-        if h3 and p:
-            title = h3.get_text(strip=True)
-            description = p.get_text(strip=True)
-
-            if not title or not description:
-                continue
-
-            if title in seen:
-                continue
-            seen.add(title)
-
-            guid = hashlib.md5((title + description).encode("utf-8")).hexdigest()
-            pub_date = datetime.datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S +0000")
-
-            articles.append({
-                "title": title,
-                "description": description,
-                "guid": guid,
-                "pubDate": pub_date,
-                "link": BASE_URL
-            })
-
-    return articles
-
-def generate_rss():
-    articles = fetch_articles()
-
-    rss_items = ""
-    for article in articles:
-        rss_items += f"""
-        <item>
-            <title>{article['title']}</title>
-            <link>{article['link']}</link>
-            <guid isPermaLink="false">{article['guid']}</guid>
-            <pubDate>{article['pubDate']}</pubDate>
-            <description>{article['description']}</description>
-        </item>
-        """
-
-    rss_feed = f"""<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-  <channel>
-    <title>J-RISE NEWS</title>
-    <link>{BASE_URL}</link>
-    <description>J-RISE Initiative公式のニュースフィード</description>
-    <language>ja</language>
-    {rss_items}
-  </channel>
-</rss>
-"""
-
-    with open(RSS_FILE, "w", encoding="utf-8") as f:
-        f.write(rss_feed)
-
-if __name__ == "__main__":
-    generate_rss()
+for tag in target_tags:
+    elements = soup.find_all(tag)
+    print(f"\n▼ <{tag}> タグ（{len(elements)}件）")
+    for i, el in enumerate(elements[:10]):  # 多すぎるときは最初の10件のみ表示
+        classes = el.get("class")
+        text = el.get_text(strip=True)
+        print(f"  [{i+1}] class={classes} text='{text[:60]}{'…' if len(text) > 60 else ''}'")
